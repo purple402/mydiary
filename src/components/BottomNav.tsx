@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BookIcon, PenIcon, SearchIcon, ChartIcon } from './FontAwesome';
 
 const Container = styled.div`
