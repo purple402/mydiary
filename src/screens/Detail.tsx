@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import { RecordType } from '../types';
+import { useParams } from 'react-router-dom';
+import { DiaryType, RecordType } from '../types';
 
 const Container = styled.div`
   display: flex;
@@ -21,13 +22,43 @@ const Contents = styled.p``;
 
 // { record, recordNumber }: { record: RecordType; recordNumber: number }
 function Detail() {
+  const { recordId } = useParams<string>();
+  const [isPresent, setIsPresent] = useState<boolean>(false);
+  const [record, setRecord] = useState<RecordType>({
+    title: '',
+    date: '',
+    contents: '',
+    tags: [],
+  });
+  const { title, date, contents, tags }: RecordType = record;
+  useEffect(() => {
+    const diary: string | null = localStorage.getItem('diary');
+    if (diary) {
+      const objectDiary: DiaryType = JSON.parse(diary);
+      const diaryLength: number = Object.keys(objectDiary).length;
+      const recordInt: number = parseInt(recordId as string, 10);
+      if (recordInt <= diaryLength) {
+        setRecord(objectDiary[recordInt]);
+        setIsPresent(true);
+      }
+    }
+  }, []);
+
   return (
-    <Container>
-      <Title>Title</Title>
-      <Date>2022-07-14</Date>
-      <Contents> 넣는 싹이 간에 기관과 두기 방황하여도, 가치를 길을 두손을 이것이다. 역사를 인생을 몸이 투명하되 것이다. 이는 그들의 얼마나 과실이 인도하겠다는 봄바람이다. 피는 가진 주며, 이것은 꽃이 끓는 있는 천하를 듣는다. 것이 온갖 풀밭에 물방아 위하여, 것은 운다. 그들은 품으며, 인류의 같지 보이는 끓는 있는가? 인생에 공자는 보이는 바이며, 놀이 보배를 것이다. 옷을 이상 이상, 없으면, 청춘의 피가 피다. 고동을 그들의 트고, 앞이 곧 얼마나 꾸며 위하여 청춘이 운다. </Contents>
-      {/* 태그 리스트 만들기 */}
-    </Container>
+    <div>
+      {isPresent ? (
+        <Container>
+          <Title>{title}</Title>
+          <Date>{date}</Date>
+          <Contents>{contents}</Contents>
+          {/* 태그 리스트 만들기 */}
+        </Container>
+      ) : (
+        <Container>
+          <Contents>일기가 존재하지 않습니다. 주소를 다시 확인해 주세요.</Contents>
+        </Container>
+      )}
+    </div>
   );
 }
 
