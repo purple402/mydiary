@@ -24,9 +24,9 @@ const RecordTitle = styled.span`
 `;
 
 function Record({ record, recordNumber }: { record: RecordType; recordNumber: number }) {
-  let shortContents: string = record.contents.slice(0, 53);
-  if (shortContents !== record.contents) {
   const { title, date, contents, tags }: RecordType = record;
+  let shortContents: string = contents.slice(0, 53);
+  if (shortContents !== contents) {
     shortContents = `${shortContents}...`;
   }
 
