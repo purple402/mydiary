@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { TagList } from '../components';
 import { DiaryType, RecordType } from '../types';
 
 const Container = styled.div`
@@ -50,7 +51,7 @@ function Detail() {
           <Title>{title}</Title>
           <Date>{date}</Date>
           <Contents>{contents}</Contents>
-          {/* 태그 리스트 만들기 */}
+          <TagList tags={tags} />
         </Container>
       ) : (
         <Container>
