@@ -60,6 +60,29 @@ function getToday(): string {
   return `${year}-${zero(month)}-${zero(date)}`;
 }
 
+const TagButton = styled.button`
+  background-color: white;
+  color: red;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-right: 10px;
+`;
+
+function createHTMLTagList(tags: string[]): JSX.Element[] {
+  const tagList = tags;
+  const HTMLTagList = [];
+  for (let i = 0; i < tagList.length; i += 1) {
+    // remove type annotation error 나옴
+    const hashtag = `# ${tagList[i]}`;
+    HTMLTagList.push(
+      <TagButton type="button" key={i}>
+        {hashtag}
+      </TagButton>,
+    );
+  }
+  return HTMLTagList;
+}
 
 function Write() {
   const dateRef = useRef<HTMLInputElement>(null);
@@ -69,6 +92,7 @@ function Write() {
     contents: '',
     tags: [],
   });
+  const [tagList, setTagList] = useState<JSX.Element[]>([]);
   const navigate = useNavigate();
 
   function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -123,6 +147,17 @@ function Write() {
 
   // :TODO 태그 입력 받는 함수
   function onCheckEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const { tags } = inputs;
+      const newTags: string[] = [...tags, e.target.value];
+      setInputs({
+        ...inputs,
+        tags: newTags,
+      });
+      e.target.value = '';
+      setTagList(createHTMLTagList(newTags));
+    }
   }
 
   return (
@@ -143,6 +178,7 @@ function Write() {
             태그
             <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
           </StyledLabel>
+          {tagList}
           <div>
             <button type="button" onClick={handleCancel}>
               다음에 쓰기
