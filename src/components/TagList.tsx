@@ -10,6 +10,12 @@ const TagButton = styled.button`
   margin-right: 10px;
 `;
 
+function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+  e.stopPropagation();
+  const hashtag: string = (e.target as HTMLElement).id;
+  console.log(hashtag);
+}
+
 function createHTMLTagList(tags: string[]): JSX.Element[] {
   const tagList = tags;
   const HTMLTagList = [];
@@ -17,7 +23,7 @@ function createHTMLTagList(tags: string[]): JSX.Element[] {
     // remove type annotation error 나옴
     const hashtag = `# ${tagList[i]}`;
     HTMLTagList.push(
-      <TagButton type="button" key={i}>
+      <TagButton type="button" key={i} id={tagList[i]} onClick={(e) => handleClick(e)}>
         {hashtag}
       </TagButton>,
     );
@@ -27,6 +33,7 @@ function createHTMLTagList(tags: string[]): JSX.Element[] {
 
 function TagList({ tags }: { tags: string[] }) {
   const tagList: JSX.Element[] = createHTMLTagList(tags);
+
   return <div>{tagList}</div>;
 }
 
