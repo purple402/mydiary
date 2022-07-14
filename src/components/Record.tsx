@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { RecordType } from '../types';
 import TagList from './TagList';
@@ -29,10 +30,14 @@ function Record({ record, recordNumber }: { record: RecordType; recordNumber: nu
   if (shortContents !== contents) {
     shortContents = `${shortContents}...`;
   }
+  const navigate = useNavigate();
 
+  function handleClick(): void {
+    navigate(`./detail/${recordNumber}`);
+  }
 
   return (
-    <Container>
+    <Container onClick={() => handleClick()}>
       <TitleDiv>
         <RecordTitle>{title}</RecordTitle>
         <span>{date}</span>
