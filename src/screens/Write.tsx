@@ -67,6 +67,11 @@ function Write() {
     tags: [],
   });
   function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { value, id } = e.target;
+    setInputs({
+      ...inputs,
+      [id]: value,
+    });
   }
 
   useEffect(() => {
