@@ -31,13 +31,15 @@ const TagButton = styled.button`
   margin-right: 10px;
 `;
 
-function createHTMLTagList(tags: string[]) {
+function createHTMLTagList(tags: string[]): JSX.Element[] {
   const tagList = tags;
   const HTMLTagList = [];
   for (let i = 0; i < tagList.length; i += 1) {
+    // remove type annotation error 나옴
+    const hashtag = `# ${tagList[i]}`;
     HTMLTagList.push(
       <TagButton type="button" key={i}>
-        {tagList[i]}
+        {hashtag}
       </TagButton>,
     );
   }
