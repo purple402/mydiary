@@ -35,7 +35,11 @@ function createHTMLTagList(tags: string[]) {
   const tagList = tags;
   const HTMLTagList = [];
   for (let i = 0; i < tagList.length; i += 1) {
-    HTMLTagList.push(<TagButton type="button">{tagList[i]}</TagButton>);
+    HTMLTagList.push(
+      <TagButton type="button" key={i}>
+        {tagList[i]}
+      </TagButton>,
+    );
   }
   return HTMLTagList;
 }
