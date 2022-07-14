@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RecordType } from '../types';
+import TagList from './TagList';
 
 const Container = styled.div`
   width: 80%;
@@ -22,35 +23,12 @@ const RecordTitle = styled.span`
   font-weight: bold;
 `;
 
-const TagButton = styled.button`
-  background-color: white;
-  color: red;
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 5px 10px;
-  margin-right: 10px;
-`;
-
-function createHTMLTagList(tags: string[]): JSX.Element[] {
-  const tagList = tags;
-  const HTMLTagList = [];
-  for (let i = 0; i < tagList.length; i += 1) {
-    // remove type annotation error 나옴
-    const hashtag = `# ${tagList[i]}`;
-    HTMLTagList.push(
-      <TagButton type="button" key={i}>
-        {hashtag}
-      </TagButton>,
-    );
 function Record({ record, recordNumber }: { record: RecordType; recordNumber: number }) {
   let shortContents: string = record.contents.slice(0, 53);
   if (shortContents !== record.contents) {
     shortContents = `${shortContents}...`;
   }
-  return HTMLTagList;
-}
 
-  const tagList: JSX.Element[] = createHTMLTagList(record.tags);
 
   return (
     <Container>
@@ -59,7 +37,7 @@ function Record({ record, recordNumber }: { record: RecordType; recordNumber: nu
         <span>{record.date}</span>
       </TitleDiv>
       <p>{shortContents}</p>
-      <div>{tagList}</div>
+      <TagList tags={record.tags} />
     </Container>
   );
 }

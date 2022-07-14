@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Title } from '../components';
+import { Title, TagList } from '../components';
 import { RecordType, DiaryType } from '../types';
 
 const WritingDiv = styled.div`
@@ -60,30 +60,6 @@ function getToday(): string {
   return `${year}-${zero(month)}-${zero(date)}`;
 }
 
-const TagButton = styled.button`
-  background-color: white;
-  color: red;
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 5px 10px;
-  margin-right: 10px;
-`;
-
-function createHTMLTagList(tags: string[]): JSX.Element[] {
-  const tagList = tags;
-  const HTMLTagList = [];
-  for (let i = 0; i < tagList.length; i += 1) {
-    // remove type annotation error 나옴
-    const hashtag = `# ${tagList[i]}`;
-    HTMLTagList.push(
-      <TagButton type="button" key={i}>
-        {hashtag}
-      </TagButton>,
-    );
-  }
-  return HTMLTagList;
-}
-
 function Write() {
   const dateRef = useRef<HTMLInputElement>(null);
   const [inputs, setInputs] = useState<RecordType>({
@@ -92,7 +68,6 @@ function Write() {
     contents: '',
     tags: [],
   });
-  const [tagList, setTagList] = useState<JSX.Element[]>([]);
   const navigate = useNavigate();
 
   function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -156,7 +131,6 @@ function Write() {
         tags: newTags,
       });
       e.target.value = '';
-      setTagList(createHTMLTagList(newTags));
     }
   }
 
@@ -178,7 +152,7 @@ function Write() {
             태그
             <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
           </StyledLabel>
-          {tagList}
+          <TagList tags={inputs.tags} />
           <div>
             <button type="button" onClick={handleCancel}>
               다음에 쓰기
