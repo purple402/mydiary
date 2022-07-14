@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Title } from '../components';
+import { RecordType, DiaryType } from '../types';
+
 const WritingDiv = styled.div`
   padding: 0 20px;
 `;
@@ -66,6 +69,8 @@ function Write() {
     contents: '',
     tags: [],
   });
+  const navigate = useNavigate();
+
   function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { value, id } = e.target;
     setInputs({
@@ -87,9 +92,33 @@ function Write() {
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    let stringDiary: string | null = null;
+    stringDiary = localStorage.getItem('diary');
+    let newDiary: DiaryType = {};
+    if (stringDiary) {
+      const objectDiary: DiaryType = JSON.parse(stringDiary);
+      const recordId: string = (Object.keys(objectDiary).length + 1).toString();
+      newDiary = {
+        ...objectDiary,
+        [recordId]: inputs,
+      };
+    } else {
+      newDiary = { 1: inputs };
+    }
+    const stringNewDiary: string = JSON.stringify(newDiary);
+    localStorage.setItem('diary', stringNewDiary);
+    // Main으로 이동
+    navigate('/');
   }
 
   function handleCancel(): void {
+    // eslint-disable-next-line no-alert
+    if (window.confirm('일기 작성을 취소하시겠습니까?')) {
+      navigate('/');
+    } else {
+      // 머무르기
+    }
   }
 
   // :TODO 태그 입력 받는 함수
