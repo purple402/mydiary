@@ -42,11 +42,16 @@ function Main() {
       tags: ['책이야기', '청춘예찬', '테스트4'],
     },
   };
+  const diaryCount: number = Object.keys(diary).length;
+
   return (
     <div>
       <Title />
       <CountDiary>
-        <span>00개의 일기 목록</span>
+        <span>
+          {diaryCount}
+          개의 일기 목록
+        </span>
       </CountDiary>
       <Diary diary={diary} />
     </div>
