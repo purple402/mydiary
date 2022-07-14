@@ -5,4 +5,8 @@ interface RecordType {
   tags: string[];
 }
 
-export type { RecordType };
+interface DiaryType {
+  [key: number]: RecordType;
+}
+
+export type { RecordType, DiaryType };
