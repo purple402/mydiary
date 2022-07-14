@@ -10,7 +10,7 @@ function App() {
         <Route path="/write" element={<Write />} />
         <Route path="/search" element={<Search />} />
         <Route path="/statistics" element={<Statistics />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:recordId" element={<Detail />} />
       </Routes>
     </div>
   );
