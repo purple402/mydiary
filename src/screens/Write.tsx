@@ -34,6 +34,29 @@ const StyledTextarea = styled.textarea`
   box-sizing: border-box;
 `;
 
+// 날짜 자리수 맞추기
+function zero(value: number | string): string {
+  return value.toString().length === 1 ? `0${value}` : `${value}`;
+}
+
+// 오늘 날짜 구하기
+function getToday(): string {
+  const today: Date = new Date();
+  const dateValue: Date = new Date(today);
+
+  // 새벽 3시에 날짜 바뀜
+  const hours: number = today.getHours();
+  if (hours < 3) {
+    dateValue.setDate(today.getDate() - 1);
+  }
+
+  const year: number = dateValue.getFullYear();
+  const month: number = dateValue.getMonth() + 1;
+  const date: number = dateValue.getDate();
+
+  return `${year}-${zero(month)}-${zero(date)}`;
+}
+
 
 function Write() {
   const dateRef = useRef<HTMLInputElement>(null);
@@ -45,6 +68,18 @@ function Write() {
   });
   function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
   }
+
+  useEffect(() => {
+    // 날짜 입력 기본값을 오늘로 한다
+    const today: string = getToday();
+    if (dateRef.current) {
+      dateRef.current.value = today;
+    }
+    setInputs({
+      ...inputs,
+      date: today,
+    });
+  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
   }
