@@ -1,6 +1,6 @@
 import React from 'react';
-import { Title } from '../components';
 import styled from 'styled-components';
+import { Title, Diary } from '../components';
 const CountDiary = styled.div`
   font-size: 15px;
   display: flex;
@@ -16,6 +16,7 @@ function Main() {
       <CountDiary>
         <span>00개의 일기 목록</span>
       </CountDiary>
+      <Diary diary={diary} />
     </div>
   );
 }
