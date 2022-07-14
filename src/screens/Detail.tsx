@@ -20,7 +20,6 @@ const Date = styled.span``;
 
 const Contents = styled.p``;
 
-// { record, recordNumber }: { record: RecordType; recordNumber: number }
 function Detail() {
   const { recordId } = useParams<string>();
   const [isPresent, setIsPresent] = useState<boolean>(false);
