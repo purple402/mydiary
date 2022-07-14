@@ -42,13 +42,14 @@ function createHTMLTagList(tags: string[]): JSX.Element[] {
         {hashtag}
       </TagButton>,
     );
+function Record({ record, recordNumber }: { record: RecordType; recordNumber: number }) {
+  let shortContents: string = record.contents.slice(0, 53);
+  if (shortContents !== record.contents) {
+    shortContents = `${shortContents}...`;
   }
   return HTMLTagList;
 }
 
-function Record({ record }: { record: RecordType }) {
-  let shortContents: string = record.contents.slice(0, 53);
-  shortContents = `${shortContents}...`;
   const tagList: JSX.Element[] = createHTMLTagList(record.tags);
 
   return (
