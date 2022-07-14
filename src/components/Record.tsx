@@ -26,6 +26,7 @@ const RecordTitle = styled.span`
 function Record({ record, recordNumber }: { record: RecordType; recordNumber: number }) {
   let shortContents: string = record.contents.slice(0, 53);
   if (shortContents !== record.contents) {
+  const { title, date, contents, tags }: RecordType = record;
     shortContents = `${shortContents}...`;
   }
 
@@ -33,11 +34,11 @@ function Record({ record, recordNumber }: { record: RecordType; recordNumber: nu
   return (
     <Container>
       <TitleDiv>
-        <RecordTitle>{record.title}</RecordTitle>
-        <span>{record.date}</span>
+        <RecordTitle>{title}</RecordTitle>
+        <span>{date}</span>
       </TitleDiv>
       <p>{shortContents}</p>
-      <TagList tags={record.tags} />
+      <TagList tags={tags} />
     </Container>
   );
 }
