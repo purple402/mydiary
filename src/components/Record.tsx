@@ -33,7 +33,7 @@ function Record({ record, recordNumber }: { record: RecordType; recordNumber: nu
   const navigate = useNavigate();
 
   function handleClick(): void {
-    navigate(`./detail/${recordNumber}`);
+    navigate(`/detail/${recordNumber}`);
   }
 
   return (
