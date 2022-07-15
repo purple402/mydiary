@@ -6,20 +6,40 @@ import { DiaryType, RecordType } from '../types';
 
 const Container = styled.div`
   display: flex;
-  border: 2px solid gray;
-  margin: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.588);
+  border-radius: 2px;
+  margin: 30px 30px 20px 30px;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 `;
 
 const Title = styled.span`
   font-size: 30px;
   font-weight: bold;
+  margin-bottom: 8px;
 `;
 
-const Date = styled.span``;
+const Date = styled.span`
+  font-size: 15px;
+`;
 
-const Contents = styled.p``;
+const Contents = styled.p`
+  margin: 20px 0;
+`;
+
+const StyledButton = styled.button`
+  margin: 0 38px;
+  padding: 10px 25px;
+  border: 1px solid rgba(0, 0, 0, 0.695);
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  color: ${(props) => props.color};
+`;
 
 function Detail() {
   const navigate = useNavigate();
@@ -64,9 +84,9 @@ function Detail() {
           <Contents>일기가 존재하지 않습니다. 주소를 다시 확인해 주세요.</Contents>
         </Container>
       )}
-      <button type="button" onClick={() => handleBackBtn()}>
+      <StyledButton type="button" color="blue" onClick={() => handleBackBtn()}>
         돌아가기
-      </button>
+      </StyledButton>
     </div>
   );
 }
