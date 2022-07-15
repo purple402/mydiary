@@ -17,11 +17,6 @@ const TagButton = styled.button`
   margin-right: 10px;
 `;
 
-function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-  e.stopPropagation();
-  const hashtag: string = (e.target as HTMLElement).id;
-  console.log(hashtag);
-}
 
 function TagList({ tags, useDelBtn = false }: TagTypes) {
   const [tagArray, setTagArray] = useState<string[]>([]);
@@ -29,6 +24,17 @@ function TagList({ tags, useDelBtn = false }: TagTypes) {
     setTagArray(tags);
   }, [tags]);
   let tagsElement: JSX.Element[] = [];
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>): void {
+    e.stopPropagation();
+    const hashtag: string = (e.target as HTMLElement).id;
+    if (!useDelBtn) {
+      console.log(hashtag);
+      // search 스크린으로 이동
+    } else {
+      // 클릭한 태그 삭제
+      const newTags = tagArray.filter((item) => item !== hashtag);
+      setTagArray(newTags);
+    }
   }
 
   function createHTMLTagList(tags: string[]): JSX.Element[] {
