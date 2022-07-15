@@ -16,6 +16,7 @@ const TagButton = styled.button`
   border-radius: 10px;
   padding: 5px 10px;
   margin-right: 10px;
+  margin-top: 4px;
   &:hover {
     background-color: #ffdde3;
   }

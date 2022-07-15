@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BookIcon, PenIcon, SearchIcon, ChartIcon } from './FontAwesome';
 
 const Container = styled.div`
-  border-top: 2px solid gray;
+  border-top: 1px solid rgba(0, 0, 0, 0.423);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -12,6 +12,7 @@ const Container = styled.div`
   height: 55px;
   display: flex;
   flex-direction: row;
+  background-color: white;
 `;
 
 const Nav = styled.div`
