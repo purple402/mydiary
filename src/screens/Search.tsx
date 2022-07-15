@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Title } from '../components';
+import { Title, TagList, Diary } from '../components';
 
 interface SearchInputsType {
   startDate: string;
@@ -57,6 +57,19 @@ function Search() {
     });
   }
 
+  function onCheckEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const { tags } = inputs;
+      const newTags: string[] = [...tags, e.target.value];
+      setInputs({
+        ...inputs,
+        tags: newTags,
+      });
+      e.target.value = '';
+    }
+  }
+
   return (
     <div>
       <Title />
@@ -72,9 +85,10 @@ function Search() {
           </StyledLabel>
           <StyledLabel htmlFor="tag">
             태그
-            <StyledInput id="tag" />
-            를 포함한
+            <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
           </StyledLabel>
+          <TagList tags={inputs.tags} />
+          <span>을 포함한</span>
         </SearchDiv>
         <button type="submit">일기 찾기</button>
         <button type="button">전체 일기 보기</button>
