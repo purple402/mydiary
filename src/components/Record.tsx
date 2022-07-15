@@ -6,9 +6,14 @@ import TagList from './TagList';
 
 const Container = styled.div`
   width: 80%;
-  border: 1px solid gray;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 20px;
+  background-color: #4db8cb33;
+  &:hover {
+    background-color: #4db8cb66;
+  }
 `;
 
 const TitleDiv = styled.div`
