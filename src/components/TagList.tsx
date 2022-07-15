@@ -27,11 +27,11 @@ function createHTMLTagList(tags: string[]): JSX.Element[] {
         {hashtag}
       </TagButton>,
     );
+function TagList({ tags, useDelBtn = false }: TagTypes) {
   }
   return HTMLTagList;
 }
 
-function TagList({ tags }: { tags: string[] }) {
   const tagList: JSX.Element[] = createHTMLTagList(tags);
 
   return <div>{tagList}</div>;
