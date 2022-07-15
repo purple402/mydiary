@@ -23,29 +23,32 @@ function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
   console.log(hashtag);
 }
 
-function createHTMLTagList(tags: string[]): JSX.Element[] {
-  const tagList = tags;
-  const HTMLTagList = [];
-  for (let i = 0; i < tagList.length; i += 1) {
-    // remove type annotation error 나옴
-    const hashtag = `# ${tagList[i]}`;
-    HTMLTagList.push(
-      <TagButton type="button" key={i} id={tagList[i]} onClick={(e) => handleClick(e)}>
-        {hashtag}
-      </TagButton>,
-    );
 function TagList({ tags, useDelBtn = false }: TagTypes) {
   const [tagArray, setTagArray] = useState<string[]>([]);
   useEffect(() => {
     setTagArray(tags);
   }, [tags]);
+  let tagsElement: JSX.Element[] = [];
   }
-  return HTMLTagList;
-}
 
-  const tagList: JSX.Element[] = createHTMLTagList(tags);
+  function createHTMLTagList(tags: string[]): JSX.Element[] {
+    const tagList = tags;
+    const HTMLTagList = [];
+    for (let i = 0; i < tagList.length; i += 1) {
+      // remove type annotation error 나옴
+      const hashtag = `# ${tagList[i]}`;
+      HTMLTagList.push(
+        <TagButton type="button" key={i} id={tagList[i]} onClick={(e) => handleClick(e)}>
+          {hashtag}
+          {useDelBtn && ' X'}
+        </TagButton>,
+      );
+    }
+    return HTMLTagList;
+  }
+  tagsElement = createHTMLTagList(tagArray);
 
-  return <div>{tagList}</div>;
+  return <div>{tagsElement}</div>;
 }
 
 export default TagList;
