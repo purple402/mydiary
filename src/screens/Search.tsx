@@ -181,7 +181,7 @@ function Search() {
             태그
             <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
           </StyledLabel>
-          <TagList tags={inputs.tags} />
+          <TagList tags={inputs.tags} useDelBtn />
           <span>을 포함한</span>
           <ButtonDiv>
             <StyledButton type="submit" onClick={(e) => handleSubmit(e)}>
