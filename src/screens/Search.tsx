@@ -44,6 +44,7 @@ const StyledInput = styled.input`
 const ButtonDiv = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 `;
 
 const StyledButton = styled.button`
@@ -196,7 +197,8 @@ function Search() {
             <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
             을 포함한
           </StyledLabel>
-          <span>태그를 입력 후 엔터를 눌러 목록이 만들어져야 검색이 가능합니다.</span>
+          <span>태그를 입력 후 엔터를 눌러</span>
+          <span>목록이 만들어져야 검색이 가능합니다.</span>
           <TagList tags={inputs.tags} useDelBtn />
           <ButtonDiv>
             <StyledButton type="submit" color="green" onClick={(e) => handleSubmit(e)}>
