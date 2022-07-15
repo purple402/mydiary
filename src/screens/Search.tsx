@@ -155,6 +155,15 @@ function Search() {
     navigate('/');
   }
 
+  function handleResetBtn(): void {
+    setInputs({
+      startDate: '',
+      endDate: '',
+      tags: [],
+    });
+    setSearchResult(null);
+  }
+
   return (
     <div>
       <Title />
@@ -177,6 +186,9 @@ function Search() {
           <ButtonDiv>
             <StyledButton type="submit" onClick={(e) => handleSubmit(e)}>
               일기 찾기
+            </StyledButton>
+            <StyledButton type="button" onClick={() => handleResetBtn()}>
+              검색 조건 초기화하기
             </StyledButton>
             <StyledButton type="button" onClick={() => handleCancelBtn()}>
               전체 일기 보기
