@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Title, TagList, Diary } from '../components';
+import { DiaryType } from '../types';
 
 interface SearchInputsType {
   startDate: string;
@@ -42,6 +43,38 @@ const StyledButton = styled.button`
   margin-bottom: 5px;
 `;
 
+function checkDate(inputDate: string, filterType: string, filterObject: DiaryType) {
+  let newObject: DiaryType = {};
+  const newInputDate: Date = new Date(inputDate);
+  switch (filterType) {
+    case 'start':
+      Object.entries(filterObject).forEach(([key, value]) => {
+        const recordDate: Date = new Date(value.date);
+        if (recordDate >= newInputDate) {
+          newObject = {
+            ...newObject,
+            [key]: value,
+          };
+        }
+      });
+      break;
+    case 'end':
+      Object.entries(filterObject).forEach(([key, value]) => {
+        const recordDate: Date = new Date(value.date);
+        if (newInputDate >= recordDate) {
+          newObject = {
+            ...newObject,
+            [key]: value,
+          };
+        }
+      });
+      break;
+    default:
+      newObject = filterObject;
+  }
+  return newObject;
+}
+
 function Search() {
   const navigate = useNavigate();
   // 입력값 관리
@@ -51,6 +84,9 @@ function Search() {
     tags: [],
   });
   const { startDate, endDate, tags }: SearchInputsType = inputs;
+  // 검색 결과
+  const [searchResult, setSearchResult] = useState<JSX.Element | null>(null);
+
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, id } = e.target;
     setInputs({
@@ -70,6 +106,49 @@ function Search() {
       });
       e.target.value = '';
     }
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLButtonElement>): void {
+    e.preventDefault();
+    const stringDiary: string | null = localStorage.getItem('diary');
+    if (stringDiary === null) {
+      // 에러 화면으로 이동하기
+    } else {
+      const objectDiary: DiaryType = JSON.parse(stringDiary);
+      let filterObject: DiaryType = objectDiary;
+
+      // 조건에 맞는 새 객체 만들기
+      // 날짜 검색
+      if (startDate) filterObject = checkDate(startDate, 'start', filterObject);
+      if (endDate) filterObject = checkDate(endDate, 'end', filterObject);
+
+      // 태그 검색
+      if (tags.length !== 0) {
+        let newObject: DiaryType = {};
+        tags.forEach((tagValue) => {
+          Object.entries(filterObject).forEach(([key, value]) => {
+            const recordTags: string[] = value.tags;
+            if (recordTags.includes(tagValue)) {
+              newObject = {
+                ...newObject,
+                [key]: value,
+              };
+            }
+          });
+          filterObject = newObject;
+          newObject = {};
+        });
+      }
+
+      // 검색 결과 표시
+      setSearchResult(displayResult(filterObject));
+    }
+  }
+
+  function displayResult(filterObject: DiaryType): JSX.Element {
+    console.log(filterObject);
+    const resultLength = Object.keys(filterObject).length;
+    return resultLength !== 0 ? <Diary diary={filterObject} /> : <span>검색 결과가 없습니다.</span>;
   }
 
   function handleCancelBtn(): void {
@@ -96,13 +175,16 @@ function Search() {
           <TagList tags={inputs.tags} />
           <span>을 포함한</span>
           <ButtonDiv>
+            <StyledButton type="submit" onClick={(e) => handleSubmit(e)}>
+              일기 찾기
+            </StyledButton>
             <StyledButton type="button" onClick={() => handleCancelBtn()}>
               전체 일기 보기
             </StyledButton>
           </ButtonDiv>
         </SearchDiv>
-        <button type="submit">일기 찾기</button>
       </form>
+      {searchResult}
     </div>
   );
 }
