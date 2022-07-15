@@ -1,5 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+interface TagTypes {
+  tags: string[];
+  // 초기화 설정해도 에러가 나옴
+  // eslint-disable-next-line react/require-default-props
+  useDelBtn?: boolean;
+}
 
 const TagButton = styled.button`
   background-color: white;
@@ -28,6 +35,10 @@ function createHTMLTagList(tags: string[]): JSX.Element[] {
       </TagButton>,
     );
 function TagList({ tags, useDelBtn = false }: TagTypes) {
+  const [tagArray, setTagArray] = useState<string[]>([]);
+  useEffect(() => {
+    setTagArray(tags);
+  }, [tags]);
   }
   return HTMLTagList;
 }
