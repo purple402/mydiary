@@ -2,13 +2,14 @@ import React from 'react';
 import Record from './Record';
 import { DiaryType } from '../types';
 
+// Record들로 HTMLElement 만들기
 function createHTMLRecordList(diary: DiaryType): JSX.Element[] {
-  const HTMLRecordList = [];
-  const diaryKeys: string[] = Object.keys(diary);
-  for (let i = diaryKeys.length; i > 0; i -= 1) {
-    HTMLRecordList.push(<Record key={i} recordNumber={i} record={diary[i]} />);
-  }
-  return HTMLRecordList;
+  const HTMLRecordList: JSX.Element[] = [];
+  Object.entries(diary).forEach(([key, value]) => {
+    const numberKey = Number(key);
+    HTMLRecordList.push(<Record key={key} recordNumber={numberKey} record={value} />);
+  });
+  return HTMLRecordList.reverse();
 }
 
 function Diary({ diary }: { diary: DiaryType }) {
