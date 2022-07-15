@@ -84,7 +84,7 @@ function Detail() {
           <Contents>일기가 존재하지 않습니다. 주소를 다시 확인해 주세요.</Contents>
         </Container>
       )}
-      <StyledButton type="button" color="blue" onClick={() => handleBackBtn()}>
+      <StyledButton type="button" color="#0000ffb5" onClick={() => handleBackBtn()}>
         돌아가기
       </StyledButton>
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface TagTypes {
@@ -17,13 +18,14 @@ const TagButton = styled.button`
   margin-right: 10px;
 `;
 
-
 function TagList({ tags, useDelBtn = false }: TagTypes) {
   const [tagArray, setTagArray] = useState<string[]>([]);
   useEffect(() => {
     setTagArray(tags);
   }, [tags]);
   let tagsElement: JSX.Element[] = [];
+  // const navigate = useNavigate();
+
   function handleClick(e: React.MouseEvent<HTMLButtonElement>): void {
     e.stopPropagation();
     const hashtag: string = (e.target as HTMLElement).id;
