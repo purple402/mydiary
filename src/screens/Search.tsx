@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Title, TagList, Diary } from '../components';
 
@@ -42,6 +43,7 @@ const StyledButton = styled.button`
 `;
 
 function Search() {
+  const navigate = useNavigate();
   // 입력값 관리
   const [inputs, setInputs] = useState<SearchInputsType>({
     startDate: '',
@@ -70,6 +72,10 @@ function Search() {
     }
   }
 
+  function handleCancelBtn(): void {
+    navigate('/');
+  }
+
   return (
     <div>
       <Title />
@@ -89,9 +95,13 @@ function Search() {
           </StyledLabel>
           <TagList tags={inputs.tags} />
           <span>을 포함한</span>
+          <ButtonDiv>
+            <StyledButton type="button" onClick={() => handleCancelBtn()}>
+              전체 일기 보기
+            </StyledButton>
+          </ButtonDiv>
         </SearchDiv>
         <button type="submit">일기 찾기</button>
-        <button type="button">전체 일기 보기</button>
       </form>
     </div>
   );
