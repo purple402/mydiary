@@ -8,9 +8,25 @@ import { DiaryType, RecordType } from '../types';
 //   totalNumOfChar: number;
 //   totalTagNumber: number;
 // }
+const StatisticTitle = styled.h2`
+  margin-bottom: 40px;
+`;
 
 const StatisticsDiv = styled.div`
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const StyledSpan = styled.span`
+  font-size: 17px;
+  margin-bottom: 3px;
+`;
+
+const StyledSpanTagList = styled(StyledSpan)`
+  margin-bottom: 15px;
 `;
 
 function removeDuplicates(list: string[]): string[] {
@@ -60,14 +76,12 @@ function Statistics() {
     <div>
       <Title />
       <StatisticsDiv>
-        <span> 당신의 기록 </span>
-        <div>
-          <p>{totalDateNum}</p>
-          <span>{totalContentsNum}</span>
-        </div>
-        <div>
-          <span>{totalTagsNum}</span>
-        </div>
+        <StatisticTitle> 당신의 기록 </StatisticTitle>
+        <StyledSpan>{totalDateNum}</StyledSpan>
+        <StyledSpan>{totalContentsNum}</StyledSpan>
+      </StatisticsDiv>
+      <StatisticsDiv>
+        <StyledSpanTagList>{totalTagsNum}</StyledSpanTagList>
         <TagList tags={totalTagsList} />
       </StatisticsDiv>
     </div>
