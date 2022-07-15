@@ -6,35 +6,63 @@ import { RecordType, DiaryType } from '../types';
 
 const WritingDiv = styled.div`
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const StyledLabel = styled.label`
   display: flex;
   justify-content: space-between;
   margin: 6px 0;
+  padding: 0 30px;
 `;
 
 const StyledInput = styled.input`
   font-size: 15px;
   padding: 8px;
-  border: 1px solid rgba(128, 128, 128, 0.253);
+  border: 1px solid rgba(0, 0, 0, 0.588);
+  border-radius: 2px;
+  width: 250px;
+  height: 17px;
 `;
 
 const StyledDateInput = styled.input`
   font-size: 16px;
   padding: 6px 7px 2px 7px;
-  border: 1px solid rgba(128, 128, 128, 0.253);
+  border: 1px solid rgba(0, 0, 0, 0.588);
+  border-radius: 2px;
+  width: 253px;
 `;
 
 const StyledTextarea = styled.textarea`
-  width: 100%;
-  height: 150px;
+  width: 95%;
+  height: 200px;
   resize: none;
-  font-size: 18px;
+  font-size: 16px;
   padding: 15px;
-  border: 1px solid rgba(128, 128, 128, 0.253);
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.588);
+  border-radius: 2px;
   box-sizing: border-box;
+  margin: 10px 0;
+`;
+
+const ButtonDiv = styled.div`
+margin-top: 20px;
+padding-right: 10px;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const StyledFormButton = styled.button`
+  margin: 0px 5px;
+  padding: 10px 25px;
+  border: 1px solid rgba(0, 0, 0, 0.695);
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  box-sizing: border-box;
+  width: 150px;
 `;
 
 // 날짜 자리수 맞추기
@@ -153,14 +181,14 @@ function Write() {
             <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
           </StyledLabel>
           <TagList tags={inputs.tags} />
-          <div>
-            <button type="button" onClick={handleCancel}>
+          <ButtonDiv>
+            <StyledFormButton type="button" onClick={() => handleCancel()}>
               다음에 쓰기
-            </button>
-            <button type="submit" onClick={(e) => handleSubmit(e)}>
+            </StyledFormButton>
+            <StyledFormButton type="submit" onClick={(e) => handleSubmit(e)}>
               저장하기
-            </button>
-          </div>
+            </StyledFormButton>
+          </ButtonDiv>
         </form>
       </WritingDiv>
     </div>
