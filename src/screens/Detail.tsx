@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { TagList } from '../components';
 import { DiaryType, RecordType } from '../types';
 
@@ -22,6 +22,7 @@ const Date = styled.span``;
 const Contents = styled.p``;
 
 function Detail() {
+  const navigate = useNavigate();
   const { recordId } = useParams<string>();
   const [isPresent, setIsPresent] = useState<boolean>(false);
   const [record, setRecord] = useState<RecordType>({
@@ -44,6 +45,11 @@ function Detail() {
     }
   }, []);
 
+  function handleBackBtn() {
+    console.log('back');
+    navigate(-1);
+  }
+
   return (
     <div>
       {isPresent ? (
@@ -58,6 +64,9 @@ function Detail() {
           <Contents>일기가 존재하지 않습니다. 주소를 다시 확인해 주세요.</Contents>
         </Container>
       )}
+      <button type="button" onClick={() => handleBackBtn()}>
+        돌아가기
+      </button>
     </div>
   );
 }
