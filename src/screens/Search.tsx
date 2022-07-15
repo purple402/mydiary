@@ -12,26 +12,33 @@ interface SearchInputsType {
 
 const SearchDiv = styled.div`
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const StyledLabel = styled.label`
   display: flex;
+  justify-content: space-between;
   margin: 6px 0;
-  align-items: center;
-  justify-content: center;
+  padding: 0 30px;
 `;
 
 const StyledDateInput = styled.input`
   font-size: 16px;
   padding: 6px 7px 2px 7px;
-  border: 1px solid rgba(128, 128, 128, 0.253);
-  margin-right: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.423);
+  border-radius: 2px;
+  width: 253px;
 `;
 
 const StyledInput = styled.input`
   font-size: 15px;
   padding: 8px;
-  border: 1px solid rgba(128, 128, 128, 0.253);
+  border: 1px solid rgba(0, 0, 0, 0.423);
+  border-radius: 2px;
+  width: ${(props) => (props.id === 'tag' ? '180px' : '250px')};
+  height: 17px;
 `;
 
 const ButtonDiv = styled.div`
@@ -40,9 +47,17 @@ const ButtonDiv = styled.div`
 `;
 
 const StyledButton = styled.button`
-  margin-bottom: 5px;
+  margin: 5px 5px;
+  padding: 10px 25px;
+  border: 1px solid rgba(0, 0, 0, 0.695);
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  box-sizing: border-box;
+  color: ${(props) => props.color};
 `;
 
+// 날짜 필터
 function checkDate(inputDate: string, filterType: string, filterObject: DiaryType) {
   let newObject: DiaryType = {};
   const newInputDate: Date = new Date(inputDate);
@@ -146,7 +161,6 @@ function Search() {
   }
 
   function displayResult(filterObject: DiaryType): JSX.Element {
-    console.log(filterObject);
     const resultLength = Object.keys(filterObject).length;
     return resultLength !== 0 ? <Diary diary={filterObject} /> : <span>검색 결과가 없습니다.</span>;
   }
@@ -180,17 +194,18 @@ function Search() {
           <StyledLabel htmlFor="tag">
             태그
             <StyledInput id="tag" onKeyPress={(e) => onCheckEnter(e)} />
+            을 포함한
           </StyledLabel>
+          <span>태그를 입력 후 엔터를 눌러 목록이 만들어져야 검색이 가능합니다.</span>
           <TagList tags={inputs.tags} useDelBtn />
-          <span>을 포함한</span>
           <ButtonDiv>
-            <StyledButton type="submit" onClick={(e) => handleSubmit(e)}>
+            <StyledButton type="submit" color="green" onClick={(e) => handleSubmit(e)}>
               일기 찾기
             </StyledButton>
-            <StyledButton type="button" onClick={() => handleResetBtn()}>
+            <StyledButton type="button" color="crimson" onClick={() => handleResetBtn()}>
               검색 조건 초기화하기
             </StyledButton>
-            <StyledButton type="button" onClick={() => handleCancelBtn()}>
+            <StyledButton type="button" color="blue" onClick={() => handleCancelBtn()}>
               전체 일기 보기
             </StyledButton>
           </ButtonDiv>
